@@ -53,7 +53,6 @@
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
-import ProductData from "@/utils/data/products.json";
 
 @Component
 export default class Index extends Vue {
