@@ -1,0 +1,24 @@
+.appbar-avatar {
+  margin-left: 15px;
+}
+
+.container-layout {
+  background-color: #f5f6f8;
+  min-height: 88vh;
+}
+
+.btn-filter {
+  border-radius: 6px;
+  height: 39px;
+  background-color: white !important;
+  border: 0.5px solid rgb(205, 205, 205);
+}
+
+.btn-secondary {
+  background-color: #F7F7F7 !important;
+  border: 0.5px solid rgb(221, 221, 221);
+}
+
+* {
+  text-transform: none !important;
+}

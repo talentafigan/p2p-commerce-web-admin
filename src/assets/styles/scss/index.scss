@@ -1,0 +1,54 @@
+@import url('https://fonts.cdnfonts.com/css/product-sans');
+
+.w-full {
+  width: 100%;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.v-input--selection-controls {
+  margin: 0px !important;
+  padding: 10px !important;
+}
+
+.theme--light.v-app-bar.v-toolbar.v-sheet {
+  background-color: white !important;
+}
+
+.v-input__append-outer {
+  margin-top: 1px !important;
+}
+
+.v-application {
+  [class*="text-"] {
+    font-family: "Product Sans", sans-serif !important;
+    letter-spacing: normal !important;
+    line-height: normal !important;
+  }
+  [class*="v-btn"] {
+    font-family: "Product Sans", sans-serif !important;
+    letter-spacing: normal !important;
+  }
+  font-family: "Product Sans", sans-serif !important;
+  letter-spacing: normal !important;
+  line-height: normal !important;
+}
+
+.font-weight-semibold {
+  font-weight: 600 !important;
+}
+
+.v-list-item__title {
+  font-size: 14px !important;
+  font-weight: 400 !important;
+}
+
+.v-list-item--active {
+  color: rgb(52, 52, 52) !important;
+}
+
+.text-grey {
+  color: #9f9f9f;
+}
