@@ -74,27 +74,44 @@
 </template>
 
 <script lang="ts">
+import { AuthApi } from "@/api/auth.api";
+import { ProfileApi } from "@/api/profile.api";
 import Vue from "vue";
 import Component from "vue-class-component";
 import { Prop } from "vue-property-decorator";
 
 @Component
 export default class Container extends Vue {
+  authApi = new AuthApi();
+  profileAPI = new ProfileApi();
   @Prop({ type: String })
   brandTitle!: string;
 
   @Prop({ type: Boolean, default: false })
   back!: boolean;
 
+  profile = {} as any;
+
   drawer = true;
   fixed = false;
   miniVariant = false;
 
-  onClickLogout() {
-    this.$store.commit("auth/resetAuth");
-    this.$nextTick(() => {
-      window.location.reload();
-    });
+  async fetchProfile() {
+    try {
+      const response = await this.profileAPI.me();
+    } catch (error) {}
+  }
+
+  async onClickLogout() {
+    try {
+      await this.authApi.logout();
+    } catch (error) {
+    } finally {
+      this.$store.commit("auth/resetAuth");
+      this.$nextTick(() => {
+        window.location.reload();
+      });
+    }
   }
 }
 </script>
