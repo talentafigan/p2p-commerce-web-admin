@@ -104,7 +104,7 @@ export default class AuthLogin extends Vue {
       this.$store.commit("auth/setAuth", {
         token: response.data.data.accessToken,
         user: response.data.data.user,
-        login_date: new Date().toISOString(),
+        loginDate: new Date().toISOString(),
       });
       this.$nextTick(() => {
         window.location.reload();

@@ -1,3 +1,5 @@
+import moment from "moment";
+moment.locale();
 export default class Helpers {
   generateUUID = () => {
     var d = new Date().getTime(); //Timestamp
@@ -29,5 +31,10 @@ export default class Helpers {
         resolve("");
       }, duration);
     });
+  }
+  datePassed(date: string, pass: number, type: any) {
+    var dateNow = moment(new Date());
+    if (moment(date).diff(dateNow, type) > pass) return true;
+    return false;
   }
 }
