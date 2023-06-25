@@ -1,4 +1,3 @@
-import store from "@/store";
 import Helpers from "./helpers";
 
 const publicRouter = "authLogin";
