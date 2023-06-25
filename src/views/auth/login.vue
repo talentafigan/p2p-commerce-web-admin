@@ -6,21 +6,19 @@
           outlined
           elevation="0"
           rounded="0"
-          class="py-12 px-6 d-flex justify-center align-start flex-column"
+          class="py-12 px-6 rounded-lg d-flex justify-center align-start flex-column"
         >
-          <div class="d-flex justify-center flex-column align-center w-full">
-            <span class="text-h5 font-weight-bold">Sign In</span>
-            <span class="text-subtitle-2 mt-3"
-              >Use your administrator account</span
-            >
+          <div class="d-flex justify-center flex-column align-start w-full">
+            <span class="text-h5 font-weight-bold">Masuk</span>
+            <span class="text-subtitle-2 mt-3">Sign in untuk melanjutkan. </span>
           </div>
-          <v-form @submit.prevent="onClickLogin" class="mt-12">
+          <v-form @submit.prevent="onClickLogin" class="mt-3">
             <v-row dense class="ma-0">
               <v-col cols="12">
                 <v-text-field
                   outlined
                   v-model="form.key"
-                  label="Username"
+                  label="Masukan  Username"
                   class="mt-2"
                   hide-details="auto"
                 ></v-text-field>
@@ -33,15 +31,12 @@
                   :type="showPassword ? 'text' : 'password'"
                   outlined
                   :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                  label="Enter Your Password"
+                  label="Masukan Password"
                   hide-details="auto"
                 ></v-text-field>
               </v-col>
             </v-row>
           </v-form>
-          <span class="text-subtitle-2 my-5"
-            >Not your computer? Use Guest mode to login privately.</span
-          >
           <v-alert
             class="w-full ma-0 mt-4"
             v-if="showErrorMessage"
@@ -55,12 +50,12 @@
             @click="onClickLogin"
             class="mt-4"
             block
-            :disabled="!form.key || !form.password"
+            :disabled="!form.key || !form.password || isLoading"
             :loading="isLoading"
             large
             depressed
             color="accent"
-            >Login</v-btn
+            >Masuk</v-btn
           >
         </v-card>
       </v-col>
@@ -72,6 +67,7 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import { AuthApi } from "@/api/auth.api";
+import { ProfileApi } from "@/api/profile.api";
 
 @Component
 export default class AuthLogin extends Vue {
@@ -90,6 +86,8 @@ export default class AuthLogin extends Vue {
 
   authApi = new AuthApi();
 
+  profileApi = new ProfileApi();
+
   async onClickLogin() {
     if (!this.form.key || !this.form.password) return;
     this.showErrorMessage = false;
@@ -101,9 +99,11 @@ export default class AuthLogin extends Vue {
         this.errorMessage = response.data.message;
         return;
       }
+      const profile = await this.profileApi.me(response.data.data.accessToken);
+      if (profile.data.status !== "SUCCESS") return;
       this.$store.commit("auth/setAuth", {
         token: response.data.data.accessToken,
-        user: response.data.data.user,
+        user: profile.data.data.user,
         loginDate: new Date().toISOString(),
       });
       this.$nextTick(() => {
