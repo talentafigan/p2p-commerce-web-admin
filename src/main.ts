@@ -8,6 +8,7 @@ import ComponentModule from "@/components/module";
 import ApexCharts from "vue-apexcharts";
 import PluginAxios from "@/plugins/axios"
 import Helpers from "@/plugins/helpers";
+import Snackbar from "@/plugins/snackbar";
 
 import "@/assets/styles/scss/index.scss";
 import "@/assets/styles/css/index.css";
@@ -21,6 +22,7 @@ PluginAxios();
 Vue.component("apex-chart", ApexCharts);
 
 Vue.prototype.$helpers = new Helpers();
+Vue.prototype.$snackbar = new Snackbar();
 
 export const app = new Vue({
   vuetify,

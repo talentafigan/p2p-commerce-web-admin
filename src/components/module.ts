@@ -10,4 +10,6 @@ export default function setup() {
   vue.component("page-dashboard-card-analytic", require("@/components/page/dashboard/card-analytic.vue").default)
   vue.component("page-dashboard-chart-order-sales", require("@/components/page/dashboard/chart-order-sales.vue").default)
   vue.component("page-dashboard-chart-order-category", require("@/components/page/dashboard/chart-order-category.vue").default)
+  vue.component("page-account-form-profile", require("@/components/page/account/form-profile.vue").default)
+  vue.component("page-account-form-password", require("@/components/page/account/form-password.vue").default)
 }

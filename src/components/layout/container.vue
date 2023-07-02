@@ -29,11 +29,19 @@
         <v-list nav dense>
           <v-divider class="my-1"></v-divider>
           <v-list-item-group color="primary">
-            <v-list-item>
+            <v-list-item @click="$router.push('/account/profile')">
+              <v-list-item-icon>
+                <v-icon size="20">mdi-account-outline</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title>Akun</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item @click="onClickLogout">
               <v-list-item-icon>
                 <v-icon size="20">mdi-logout-variant</v-icon>
               </v-list-item-icon>
-              <v-list-item-content @click="onClickLogout">
+              <v-list-item-content >
                 <v-list-item-title>Keluar</v-list-item-title>
               </v-list-item-content>
             </v-list-item>

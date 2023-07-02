@@ -10,4 +10,10 @@ export class ProfileApi {
         : {},
     });
   }
+  update(data: any) {
+    return Axios.put("/api/profile", data);
+  }
+  changePassword(data: any) {
+    return Axios.put("/api/profile/new-password", data);
+  }
 }

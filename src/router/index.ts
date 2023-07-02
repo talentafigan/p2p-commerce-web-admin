@@ -15,6 +15,11 @@ const routes: Array<RouteConfig> = [
     path: "/auth/login",
     component: Module.authLogin,
   },
+  {
+    name: "accountProfile",
+    path: "/account/profile",
+    component: Module.accountProfile,
+  },
 ];
 
 const router = new VueRouter({
