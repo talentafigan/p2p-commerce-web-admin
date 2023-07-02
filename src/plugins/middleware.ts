@@ -5,7 +5,7 @@ const publicRouter = "authLogin";
 const helpers = new Helpers();
 
 export const authMiddleware = (ctx: any) => {
-  const vuex = sessionStorage.getItem("vuex");
+  const vuex = localStorage.getItem("vuex");
   if (!vuex) {
     if (ctx.to.name === publicRouter) return ctx.next();
     return ctx.next("/auth/login");
