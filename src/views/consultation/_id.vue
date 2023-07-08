@@ -17,6 +17,7 @@
       </v-col>
       <v-col cols="12">
         <v-card
+          id="container-chat"
           style="height: 55vh; overflow-y: auto"
           class="pa-4"
           rounded="0"
@@ -195,6 +196,12 @@ export default class ConsultationDetail extends Vue {
           return;
         }
         this.chats = resp.data.data;
+        this.$nextTick(() => {
+          document.getElementById("container-chat")?.scrollTo({
+            behavior: "smooth",
+            top: document.getElementById("container-chat")?.scrollHeight,
+          });
+        });
       } catch (error: any) {
       } finally {
         resolve(true);
