@@ -20,6 +20,16 @@ const routes: Array<RouteConfig> = [
     path: "/account/profile",
     component: Module.accountProfile,
   },
+  {
+    name: "consultation",
+    path: "/consultation",
+    component: Module.consultation,
+  },
+  {
+    name: "consultationDetail",
+    path: "/consultation/:id",
+    component: Module.consultationDetail,
+  },
 ];
 
 const router = new VueRouter({
@@ -31,6 +41,5 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   authMiddleware({ to, from, next });
 });
-
 
 export default router;
