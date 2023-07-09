@@ -69,6 +69,7 @@
       </v-col>
       <v-col cols="12">
         <v-card
+          v-if="consultation?.status?.statusId === 3"
           class="pa-3 d-flex flex-row align-center"
           rounded="0"
           outlined
