@@ -4,4 +4,5 @@ export default {
   accountProfile: require("@/views/account/profile.vue").default,
   consultation: require("@/views/consultation/index.vue").default,
   consultationDetail: require("@/views/consultation/_id.vue").default,
+  transaction: require("@/views/transactions/index.vue").default,
 };

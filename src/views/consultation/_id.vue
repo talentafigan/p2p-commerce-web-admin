@@ -24,7 +24,7 @@
           outlined
           elevation="0"
         >
-          <v-row v-for="item in chats" dense no-gutters>
+          <v-row v-for="(item, index) in chats" :key="index" dense no-gutters>
             <v-col cols="12">
               <div
                 :class="[

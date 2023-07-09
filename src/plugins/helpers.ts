@@ -51,4 +51,18 @@ export default class Helpers {
     ).toUpperCase();
     return initials;
   }
+  currencyFormat(val: number) {
+    if (!val) return 0;
+    let formatter = new Intl.NumberFormat("ja-JP", {
+      style: "currency",
+      currency: "JPY",
+      currencyDisplay: "code",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 20,
+    })
+      .format(val)
+      .replace("JPY", "")
+      .trim();
+    return formatter;
+  }
 }
