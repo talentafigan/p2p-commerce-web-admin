@@ -24,8 +24,6 @@ import { Prop } from "vue-property-decorator";
 @Component
 export default class PageDashboardCardAnalytic extends Vue {
   @Prop({ type: String })
-  color!: string;
-  @Prop({ type: String })
   title!: string;
   @Prop({ type: String })
   content!: string;

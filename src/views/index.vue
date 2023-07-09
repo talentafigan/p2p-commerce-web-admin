@@ -33,6 +33,15 @@
                       </tr>
                     </thead>
                     <tbody>
+                      <tr v-if="mostSalesProduct.length === 0">
+                        <td colspan="3">
+                          <div
+                            class="w-full d-flex justify-center flex-column align-center"
+                          >
+                            <span>Data not found.</span>
+                          </div>
+                        </td>
+                      </tr>
                       <tr v-for="item in mostSalesProduct" :key="item.name">
                         <td>{{ item.name }}</td>
                         <td>{{ item.category }}</td>
@@ -53,52 +62,64 @@
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
+import { AnalyticApi } from "@/api/analytic.api";
 
 @Component
 export default class Index extends Vue {
+  analyticApi = new AnalyticApi();
+
   analytics = [
     {
-      color: "#E1BEE7",
       title: "Consultation",
-      content: "300",
-      description: "+5% of previous month",
+      content: "",
+      description: "0% of previous month",
     },
     {
-      color: "#FFF59D",
       title: "Transaction",
-      content: "240",
-      description: "1.239 All time transaction",
+      content: "",
+      description: "0 All time transaction",
     },
     {
-      color: "#E8EAF6",
       title: "Total student",
-      content: "2.300",
-      description: "+174 New student",
+      content: "",
+      description: "0 New student",
     },
     {
-      color: "#E1BEE7",
       title: "Total mentor",
-      content: "950",
-      description: "+38 New mentor",
+      content: "",
+      description: "0 New mentor",
     },
   ];
 
-  mostSalesProduct = [
-    {
-      name: "Kelas Pemorograman Dasar",
-      category: "Computer Science",
-      sales: "3.299",
-    },
-    {
-      name: "Kelas Digital Marketing",
-      category: "Business",
-      sales: "2.388",
-    },
-    {
-      name: "Kelas Hukum & Administrasi Bisnis",
-      category: "Business",
-      sales: "388",
-    },
-  ];
+  mostSalesProduct = [] as { name: string; category: string; sales: string }[];
+
+  $snackbar: any;
+
+  async fetchAnalytic() {
+    try {
+      const resp = await this.analyticApi.getAnalyticAdmin();
+      if (resp.data.status !== "SUCCESS") {
+        this.$snackbar.open({
+          text: resp.data.message,
+        });
+        return;
+      }
+      this.analytics[0].content = resp.data.data.consultation;
+      this.analytics[1].content = resp.data.data.transaction;
+      this.analytics[2].content = resp.data.data.totalStudent;
+      this.analytics[3].content = resp.data.data.totalMentor;
+    } catch (error: any) {
+      const errorMessage = error.response
+        ? error.response.message
+        : "System Error, please contact our team";
+      this.$snackbar.open({
+        text: errorMessage,
+      });
+    }
+  }
+
+  mounted() {
+    this.fetchAnalytic();
+  }
 }
 </script>
