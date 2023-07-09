@@ -34,9 +34,7 @@
           <div class="d-flex mt-4 justify-space-between align-center flex-row">
             <span class="text-subtitle-2">Status</span>
             <span class="text-subtitle-2">{{
-              clientDetail.status?.statusName
-                ? clientDetail.status?.statusName
-                : "-"
+              clientDetail.user ? clientDetail.user?.status.statusName : "-"
             }}</span>
           </div>
           <div class="d-flex mt-4 justify-space-between align-center flex-row">
@@ -114,7 +112,7 @@ export default class Mentor extends Vue {
     },
     {
       text: "Status",
-      value: "status.statusName",
+      value: "user.status.statusName",
       sortable: false,
     },
     {

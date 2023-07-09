@@ -39,9 +39,7 @@
           <div class="d-flex mt-4 justify-space-between align-center flex-row">
             <span class="text-subtitle-2">Status</span>
             <span class="text-subtitle-2">{{
-              sellerDetail.status?.statusName
-                ? sellerDetail.status?.statusName
-                : "-"
+              sellerDetail.user ? sellerDetail.user?.status.statusName : "-"
             }}</span>
           </div>
           <div class="d-flex mt-4 justify-space-between align-center flex-row">
@@ -75,10 +73,10 @@
               <v-list-item-group color="primary">
                 <v-list-item @click="onClickDetail(row.item.sellerId)">
                   <v-list-item-content>
-                    <v-list-item-title>Akun</v-list-item-title>
+                    <v-list-item-title>Detail</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
-                <v-list-item>
+                <v-list-item v-if="row.item.user.status.statusId === 2">
                   <v-list-item-content>
                     <v-list-item-title>Approve</v-list-item-title>
                   </v-list-item-content>
@@ -128,7 +126,7 @@ export default class Mentor extends Vue {
     },
     {
       text: "Status",
-      value: "status.statusName",
+      value: "user.status.statusName",
       sortable: false,
     },
     {
