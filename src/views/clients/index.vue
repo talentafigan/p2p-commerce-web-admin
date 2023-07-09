@@ -155,6 +155,13 @@ export default class Mentor extends Vue {
     }
   }
 
+  openId() {
+    const openId = this.$route.query.openId as any;
+    if (openId) {
+      this.onClickDetail(openId);
+    }
+  }
+
   async onClickDetail(id: any) {
     try {
       const resp = await this.clientApi.getDetail(id);
@@ -178,6 +185,7 @@ export default class Mentor extends Vue {
 
   mounted() {
     this.fetchMentor();
+    this.openId()
   }
 }
 </script>

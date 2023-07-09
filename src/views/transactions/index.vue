@@ -33,21 +33,37 @@
           <div class="d-flex mt-2 justify-space-between flex-row w-full">
             <span class="text-subtitle-2">Student </span>
             <span
-              @click="$router.push('/client/id')"
+              @click="
+                $router.push(
+                  '/client?openId=' + transactionDetail.client?.clientId
+                )
+              "
               class="text-subtitle-2 cursor-pointer font-weight-bold primary--text"
-              >Student Name</span
+              >{{
+                transactionDetail.client
+                  ? transactionDetail.client.fullname
+                  : "-"
+              }}</span
             >
           </div>
           <v-divider class="my-4"></v-divider>
           <div class="d-flex justify-space-between align-center flex-row">
             <span class="font-weight-bold text-subtitle-2">Detail Kelas</span>
-            <div
-              @click="$router.push('/seller/id')"
-              class="d-flex justify-center align-center flex-row"
-            >
-              <v-icon>mdi-account</v-icon>
-              <span class="cursor-pointer font-weight-bold text-subtitle-2 ml-1"
-                >Seller Name</span
+            <div class="d-flex justify-center align-center flex-row">
+              <v-icon>mdi-account-tie</v-icon>
+              <span
+                @click="
+                  $router.push(
+                    '/seller?openId=' +
+                      transactionDetail.product?.seller.sellerId
+                  )
+                "
+                class="cursor-pointer font-weight-bold text-subtitle-2 ml-1"
+                >{{
+                  transactionDetail.product
+                    ? transactionDetail.product?.seller.fullname
+                    : "-"
+                }}</span
               >
             </div>
           </div>
@@ -64,10 +80,21 @@
                   </v-col>
                   <v-col cols="9">
                     <div class="px-4 d-flex justify-center flex-column">
-                      <span class="text-subtitle-1 font-weight-bold"
-                        >2 Jam Mahir Digital Marketing</span
+                      <span class="text-subtitle-1 font-weight-bold">{{
+                        transactionDetail.product
+                          ? transactionDetail.product?.productName
+                          : "-"
+                      }}</span>
+                      <span class="text-subtitle-2 mt-2"
+                        >Rp
+                        {{
+                          transactionDetail.product
+                            ? $helpers.currencyFormat(
+                                transactionDetail.product?.productPrice
+                              )
+                            : "-"
+                        }}</span
                       >
-                      <span class="text-subtitle-2 mt-2">Rp.80.000</span>
                     </div>
                   </v-col>
                 </v-row>
@@ -80,7 +107,16 @@
                   <span class="text-subtitle-2 font-weight-bold"
                     >Total Transaksi</span
                   >
-                  <span class="text-subtitle-2 mt-2">Rp.90.034</span>
+                  <span class="text-subtitle-2 mt-2"
+                    >Rp
+                    {{
+                      transactionDetail.product
+                        ? $helpers.currencyFormat(
+                            transactionDetail.product?.productPrice
+                          )
+                        : "-"
+                    }}</span
+                  >
                 </div>
               </v-col>
             </v-row>
@@ -100,9 +136,14 @@
             $helpers.fullDate(row.item.createDate)
           }}</span>
         </template>
+        <template #[`item.amount`]="row">
+          <span class="text-subtitle-2"
+            >Rp {{ $helpers.currencyFormat(row.item.amount) }}</span
+          >
+        </template>
         <template #[`item.action`]="row">
           <v-btn
-            @click="onClickDetail(row.item.transactionId)"
+            @click="onClickDetail(row.item.productTransactionId)"
             color="primary"
             icon
           >
@@ -118,17 +159,6 @@ import Vue from "vue";
 import Component from "vue-class-component";
 import { TransactionApi } from "@/api/transaction.api";
 
-interface IProductTransaction {
-  productTransactionId: number | string;
-  client: any;
-  productTransactionStatus: any;
-  amount: any;
-  product: any;
-  createDate: any;
-  proof: any;
-  canceledDate: any;
-}
-
 @Component
 export default class ProductTransaction extends Vue {
   transactionApi = new TransactionApi();
@@ -142,12 +172,12 @@ export default class ProductTransaction extends Vue {
     },
     {
       text: "Mentor",
-      value: "seller.fullname",
+      value: "product.seller.fullname",
       sortable: false,
     },
     {
       text: "Kelas",
-      value: "product.name",
+      value: "product.productName",
       sortable: false,
     },
     {
@@ -162,7 +192,7 @@ export default class ProductTransaction extends Vue {
     },
     {
       text: "Status",
-      value: "productTransactionStatus",
+      value: "productTransactionStatus.productTransactionStatusName",
       sortable: false,
     },
     {
@@ -174,9 +204,9 @@ export default class ProductTransaction extends Vue {
 
   dialogDetail = false;
 
-  transaction = [] as IProductTransaction[];
+  transaction = [] as any[];
 
-  transactionDetail = {} as IProductTransaction;
+  transactionDetail = {} as any;
 
   $snackbar: any;
 
