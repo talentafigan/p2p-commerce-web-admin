@@ -117,7 +117,6 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import { TransactionApi } from "@/api/transaction.api";
-import router from "@/router";
 
 interface IProductTransaction {
   productTransactionId: number | string;
@@ -167,7 +166,7 @@ export default class ProductTransaction extends Vue {
       sortable: false,
     },
     {
-      text: "Action",
+      text: "Aksi",
       value: "action",
       sortable: false,
     },

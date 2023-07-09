@@ -35,6 +35,16 @@ const routes: Array<RouteConfig> = [
     path: "/transaction",
     component: Module.transaction,
   },
+  {
+    name: "seller",
+    path: "/seller",
+    component: Module.seller,
+  },
+  {
+    name: "client",
+    path: "/client",
+    component: Module.client,
+  },
 ];
 
 const router = new VueRouter({
