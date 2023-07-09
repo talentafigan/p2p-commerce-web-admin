@@ -4,6 +4,16 @@
     <v-form ref="form" class="mt-4">
       <v-text-field
         class="mt-4"
+        :rules="rules.oldPassword"
+        @click:append="showOldPassword = !showOldPassword"
+        :type="showOldPassword ? 'text' : 'password'"
+        :append-icon="showOldPassword ? 'mdi-eye' : 'mdi-eye-off'"
+        v-model="form.oldPassword"
+        label="Password Lama"
+        hide-details="auto"
+      ></v-text-field>
+      <v-text-field
+        class="mt-4"
         :rules="rules.newPassword"
         @click:append="showNewPassword = !showNewPassword"
         :type="showNewPassword ? 'text' : 'password'"
@@ -52,11 +62,13 @@ import Component from "vue-class-component";
 @Component
 export default class PageAccountFormProfile extends Vue {
   form = {
+    oldPassword: "",
     newPassword: "",
     confirmPassword: "",
   };
 
   rules = {
+    oldPassword: [(v: any) => !!v || "Wajib di isi."],
     newPassword: [(v: any) => !!v || "Wajib di isi."],
     confirmPassword: [
       (v: any) => !!v || "Wajib di isi.",
@@ -65,6 +77,7 @@ export default class PageAccountFormProfile extends Vue {
   };
 
   showNewPassword = false;
+  showOldPassword = false;
   showConfirmPassword = false;
 
   profileApi = new ProfileApi();
