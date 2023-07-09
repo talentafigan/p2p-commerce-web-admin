@@ -74,6 +74,17 @@
           outlined
           elevation="0"
         >
+          <v-alert class="w-full" text type="info">
+            Sesi konsultasi telah berakhir.
+          </v-alert>
+        </v-card>
+        <v-card
+          v-if="consultation?.status?.statusId === 1"
+          class="pa-3 d-flex flex-row align-center"
+          rounded="0"
+          outlined
+          elevation="0"
+        >
           <v-textarea
             placeholder="Masukan pesan..."
             solo
